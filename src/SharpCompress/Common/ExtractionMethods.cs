@@ -24,6 +24,11 @@ namespace SharpCompress.Common
                                      Overwrite = true
                                  };
 
+            if (options.UseIndexAsFileName)
+            {
+                file = entry.Index + Path.GetExtension(file);
+            }
+
             if (options.ExtractFullPath)
             {
                 string folder = Path.GetDirectoryName(entry.Key);

@@ -23,6 +23,11 @@
         public bool PreserveAttributes { get; set; }
 
         /// <summary>
+        /// Rename file with Index while extraction
+        /// </summary>
+        public bool UseIndexAsFileName { get; set; }
+
+        /// <summary>
         /// Delegate for writing symbolic links to disk.
         /// sourcePath is where the symlink is created.
         /// targetPath is what the symlink refers to.
