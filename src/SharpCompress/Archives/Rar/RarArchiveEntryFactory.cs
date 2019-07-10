@@ -38,9 +38,13 @@ namespace SharpCompress.Archives.Rar
         internal static IEnumerable<RarArchiveEntry> GetEntries(RarArchive archive,
                                                                 IEnumerable<RarVolume> rarParts)
         {
+            int index = 0;
             foreach (var groupedParts in GetMatchedFileParts(rarParts))
             {
-                yield return new RarArchiveEntry(archive, groupedParts);
+                RarArchiveEntry rarArchiveEntry = new RarArchiveEntry(archive, groupedParts);
+                rarArchiveEntry.Index = index;
+                index++;
+                yield return rarArchiveEntry;
             }
         }
     }
