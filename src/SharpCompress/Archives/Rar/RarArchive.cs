@@ -128,6 +128,24 @@ namespace SharpCompress.Archives.Rar
                 return IsRarFile(stream);
             }
         }
+
+        public static bool IsRar5File(string filePath)
+        {
+            return IsRar5File(new FileInfo(filePath));
+        }
+
+        public static bool IsRar5File(FileInfo fileInfo)
+        {
+            if (!fileInfo.Exists)
+            {
+                return false;
+            }
+            using (Stream stream = fileInfo.OpenRead())
+            {
+                return IsRar5File(stream);
+            }
+        }
+
 #endif
         
         public static bool IsRarFile(Stream stream, ReaderOptions options = null)
@@ -143,6 +161,24 @@ namespace SharpCompress.Archives.Rar
             }
         }
 
+        /// <summary>
+        /// Read mark header and check Rar5 flag
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static bool IsRar5File(Stream stream, ReaderOptions options = null)
+        {
+            try
+            {
+                MarkHeader markHeader = MarkHeader.Read(stream, true, false);
+                return markHeader.IsRar5;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
     }
 }
