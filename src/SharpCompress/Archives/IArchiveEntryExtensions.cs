@@ -34,7 +34,7 @@ namespace SharpCompress.Archives
                     s.TransferTo(streamToWriteTo);
                 }
             }
-            streamListener.FireEntryExtractionEnd(archiveEntry);
+            //streamListener.FireEntryExtractionEnd(archiveEntry);
         }
 
 #if !NO_FILE
@@ -63,6 +63,8 @@ namespace SharpCompress.Archives
                                                    {
                                                        entry.WriteTo(fs);
                                                    }
+                                                   var streamListener = entry.Archive as IArchiveExtractionListener;
+                                                   streamListener.FireEntryExtractionEnd(entry);
                                                });
         }
 #endif
